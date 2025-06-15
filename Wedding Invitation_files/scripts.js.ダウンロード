@@ -1,0 +1,96 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const secondImage = document.getElementById('second-image');
+    const thirdImage = document.getElementById('third-image');
+    const smallPhotosContainer = document.getElementById('small-photos-gal');
+    const smallPhotos = [
+        { src: '../static/img/small-img01.jpeg', text: "2021/10 深圳欢乐海岸，一次排除万难的相聚，那晚的海风轻柔惬意" },
+        { src: '../static/img/small-img02.jpeg', text: "2022/02 上海黄浦，共进情人节晚餐 💗。离别前最后一次相聚，信心旅程的开始，我们一年后再见" },
+        { src: '../static/img/small-img03.jpeg', text: "2023/04 温州松台山下，走在Shuhan成长的足迹里" },
+        { src: '../static/img/small-img04.jpeg', text: "2023/10 深圳，礼拜日赶早从机场出发与熟悉的弟兄姊妹相聚，回到我们最初相识的地方"},
+        { src: '../static/img/small-img05.jpeg', text: "2023/10 深圳，Smile!"},
+        { src: '../static/img/small-img06.jpeg', text: "2023/10 深圳，还是Smile!" },
+        { src: '../static/img/small-img11.jpeg', text: "2024/02 首尔，第一次一起出国旅行～" },
+        { src: '../static/img/small-img08.jpeg', text: "2024/07 Shuxin唱歌🎤唱累了，小憩一会儿" },
+        { src: '../static/img/small-img12.jpeg', text: "2024/07 深圳欢乐海岸，尝试复刻三年前的角度，可最终也没能如愿" },
+        { src: '../static/img/small-img10.jpeg', text: "2024/11 东京水元公园，阳光洒满身，我们再次重逢。此刻，你就在我身边"},
+    ];
+
+    function createSmallPhotos() {
+        if (!smallPhotosContainer) return;
+
+        smallPhotos.forEach(({ src, text }, index) => {
+            const photoWrapper = document.createElement('div');
+            photoWrapper.classList.add('photo-wrapper');
+            photoWrapper.style.position = 'relative';
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Small Photo ${index + 1}`;
+            img.classList.add('small-photo');
+            img.style.animationDelay = `${index * 0.3}s`; // Staggered animation
+            img.style.setProperty('--random-tilt', `${Math.random() * 10 - 5}deg`); // Random tilt
+
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.innerText = text;
+
+            photoWrapper.appendChild(img);
+            photoWrapper.appendChild(bubble);
+            smallPhotosContainer.appendChild(photoWrapper);
+        });
+    }
+
+    createSmallPhotos();
+
+    // Function to check if an element is in the viewport
+    function isInViewport(element) {
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom > 0 &&
+            rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.right > 0
+        );
+    }
+
+    // Function to handle the visibility of images
+    function handleScroll() {
+        if (secondImage && isInViewport(secondImage)) {
+            secondImage.classList.add('visible');
+        } else if (secondImage) {
+            secondImage.classList.remove('visible');
+        }
+        // Handle the small photos animation for the third image
+        if (thirdImage && isInViewport(thirdImage)) {
+            thirdImage.classList.add('visible');
+        } else {
+            thirdImage.classList.remove('visible');
+        }
+
+        if (smallPhotosContainer && isInViewport(smallPhotosContainer)) {
+            smallPhotosContainer.classList.add('visible'); // Show container
+            smallPhotosContainer.querySelectorAll('.small-photo').forEach((photo, index) => {
+                setTimeout(() => photo.classList.add('visible'), index * 300); // Stagger effect
+            });
+        } else {
+            smallPhotosContainer.classList.remove('visible'); // Hide container
+            smallPhotosContainer.querySelectorAll('.small-photo').forEach((photo) => {
+                photo.classList.remove('visible');
+            });
+        }
+    }
+
+    // Throttle scroll event
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) return;
+        scrollTimeout = setTimeout(() => {
+            handleScroll();
+            scrollTimeout = null;
+        }, 100);
+    });
+
+    // Run the function once to handle initial visibility on page load
+    handleScroll();
+})

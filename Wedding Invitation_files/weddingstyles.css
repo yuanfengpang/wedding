@@ -1,0 +1,278 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fefefe;
+    color: #333;
+}
+
+span {
+    display: inline-block;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* For the first-section, incl. one image and name*/
+.first-section {
+    text-align: center;
+    /* margin-bottom: 40px; */
+}
+
+.portrait-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.frame {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.couple-names {
+    margin-top: 20px;
+    font-size: 2em; /* Slightly larger for emphasis */
+    font-weight: bolder;
+    color: #42225b; /* A richer purple for elegance */
+    font-family: cursive; /* Elegant serif font */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-align: center; /* Centered for symmetry */
+    letter-spacing: 0.05em; /* Slight spacing for readability */
+}
+
+/* Row to center images and captions */
+.gallery-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Centering the image and text box */
+.image-box {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
+}
+
+.image, 
+#third-image {
+    margin-top: -15px;
+}
+
+/* Image styling */
+.image-box img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Image caption styling */
+.classic-type {
+    font-family: cursive; 
+    font-size: 1em; /* Large enough for emphasis */
+    font-weight: bolder; /* Medium weight for balanced look */
+    color: #5a3d5c; /* Soft plum color for warmth */
+    text-align: center; /* Center-align for symmetry */
+    line-height: 1.5; /* Comfortable spacing between lines */
+    letter-spacing: 0.03em; /* Slight spacing for clarity */
+}
+
+.classic-type-large {
+    font-size: 1.4em; 
+}
+
+/* When the image is in view, it will fade in */
+.image-box.visible {
+    opacity: 1;
+}
+
+
+/* Calendar Section */
+.calendar-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.wedding-date {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #444;
+}
+
+.calendar {
+    font-family: 'PingFang SC';
+    margin-top: 20px;
+    font-weight: normal;
+    font-size: 0.7em;
+    color: #7d4b8a;
+    line-height: 1.5;
+}
+
+/* Portrait Section */
+.portrait-section {
+    margin-top: 30px;
+}
+
+.portrait-row {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;     
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.portrait-box {
+    text-align: center;
+}
+
+.portrait-box img {
+    width: 43vw;
+    max-width: 230px;
+    border-radius: 10px; /* Preserve rounded corners */
+    object-fit: cover; /* Ensure images fit within the dimensions without distortion */
+}
+
+.portrait-box p:lang(en) {
+    font-family: 'Merriweather', serif; /* Elegant font for English */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .portrait-image {
+        max-width: 90vw;
+    }
+
+    .image-box img, .portrait-box img {
+        max-width: 90vw;
+    }
+
+    .gallery-row {
+        flex-direction: column;
+    }
+}
+/* Small photos container - Responsive design */
+.small-photos {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for responsive design */
+    justify-content: center; /* Center photos in smaller screens */
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px; /* Add spacing between photos */
+    width: 100%; /* Ensure it fits within the parent container */
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px); /* Start slightly below */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Add transition */
+}
+
+/* Visible state for the container */
+.small-photos.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Reset position */
+}
+
+/* Individual small photo styles - Responsive design */
+.small-photo {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    transform-origin: center;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px) rotate(0deg); /* Start slightly below, no tilt */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+    .small-photo {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 480px) {
+    .small-photo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Visible state for each small photo */
+.small-photo.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0) rotate(var(--random-tilt)); /* Add tilt when visible */
+}
+
+
+/* Bubble styling */
+.bubble {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f4f4f8; /* Soft bubble color */
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1em; /* Base font size */
+    color: #333;
+    opacity: 0;
+    pointer-events: none; /* Prevent interference with mouse */
+    white-space: normal; /* Allow text to wrap */
+    max-width: 90%; /* Limit bubble width to prevent overflow */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    line-height: 1.2; /* Adjust line height for readability */
+    z-index: 9999; /* Ensure bubble is above other elements */
+}
+
+/* Adjust font size for medium screens */
+@media (max-width: 768px) {
+    .bubble {
+        font-size: 0.85em; /* Slightly smaller font for tablets */
+        padding: 2px 4px; /* Adjust padding */
+    }
+}
+
+/* Adjust font size for small screens */
+@media (max-width: 480px) {
+    .bubble {
+        font-size: 0.75em; /* Smaller font for phones */
+        padding: 1.5px 3px; /* Smaller padding for compact design */
+    }
+}
+
+
+/* Bubble appears when hovering */
+.photo-wrapper:hover .bubble {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px); /* Slight upward motion */
+}
+
+/* For spacing between photos */
+.photo-wrapper {
+    display: inline-block;
+    margin: 5px;
+    position: relative; /* Ensure the bubble stays relative to each image */
+}
